@@ -1,20 +1,23 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from service import Service
 from repo import Repo
 
 app = Flask(__name__)
+CORS(app, resources={r"*": {"origins": "*"}})
 
 """ Setting up Service Object """
 
 repo = Repo()
 service = Service(repo)
 
+
+
 """ Record API Requests """
 @app.route("/record")
 def getAllRecords():
     data = service.getAllRecords()
-    print(data[0])
-    return data
+    return jsonify(response = data)
 
 @app.route("/record/<id>")
 def getRecord(id):

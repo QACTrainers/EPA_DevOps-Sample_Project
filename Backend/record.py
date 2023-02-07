@@ -18,6 +18,4 @@ class Record:
         else:
             return "Cannot lower by a negative"
 
-    def convertJson(self):
-        jsonStr = json.dumps(self.__dict__)
-        return jsonStr
+            
