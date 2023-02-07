@@ -1,6 +1,13 @@
-from flask import Flask, Request
+from flask import Flask, request
+from service import Service
+from repo import Repo
 
 app = Flask(__name__)
+
+""" Setting up Service Object """
+
+repo = Repo()
+service = Service(repo)
 
 """ Record API Requests """
 @app.route("/record")
