@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from service import Service
 from repo import Repo
 
@@ -12,20 +12,26 @@ service = Service(repo)
 """ Record API Requests """
 @app.route("/record")
 def getAllRecords():
-    return "Get All Records"
+    data = service.getAllRecords()
+    print(data[0])
+    return data
 
 @app.route("/record/<id>")
 def getRecord(id):
-    return f"Get Record {id}"
+    data = service.getRecordId(id)
+    print(data)
+    return data
 
 @app.route("/record", methods=['POST'])
 def createRecord():
     record = request.get_json()
+    print(record)
     return record
 
 @app.route("/record/<id>", methods=['PUT'])
 def updateRecord(id):
     record = request.get_json()
+    print(record)
     return record
 
 """ Order API Requests """

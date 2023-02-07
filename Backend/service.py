@@ -7,11 +7,18 @@ class Service:
         self.repo = repo
 
     def getAllRecords(self):
-        return "get All Records"
+        data = self.repo.runQuery("SELECT * FROM records").fetchall()
+        dataArray = []
+        for entry in data:
+            dataObj = self.convertRecord(entry)
+            dataArray.append(dataObj)
+        return dataArray
 
     def getRecordId(self, id):
-        return "get One Record"
-
+        data = self.repo.runQuery(f"SELECT * FROM records WHERE record_id = {id}").fetchall()
+        dataObj = self.convertRecord(data[0])
+        return dataObj
+        
     def createRecord(self, data):
         record = Record(data)
         return "Create new record"
@@ -38,6 +45,12 @@ class Service:
 
     def deleteOrder(self, id):
         return "Deleted order"
+
+    def convertRecord(self, data):
+        recordObj = Record(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
+        return recordObj.convertJson()
+
+
 
     
 
