@@ -2,9 +2,9 @@ import sqlite3 as sql
 
 class Repo:
 
-    def __init__(self):
-        self.conn = sql.connect("records-db")
-        self.cursor = self.conn.cursor()
+    # def __init__(self):
+    #     self.conn = sql.connect("records-db")
+    #     self.cursor = self.conn.cursor()
 
     def createTable(self):
         sql_file = open("setup.sql")
@@ -13,7 +13,9 @@ class Repo:
         return self.cursor.execute("SELECT name from sqlite_master").fetchall()
 
     def runQuery(self, query):
-        data = self.cursor.execute(query)
+        conn = sql.connect("records-db")
+        cursor = conn.cursor()
+        data = cursor.execute(query)
         return data
     
     def commitChanges(self):
