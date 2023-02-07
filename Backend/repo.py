@@ -9,13 +9,16 @@ class Repo:
     def createTable(self):
         sql_file = open("setup.sql")
         sql_string = sql_file.read()
-        self.cursor.executescript(sql_string)
-        return self.cursor.execute("SELECT name from sqlite_master").fetchall()
+        conn = sql.connect("records-db")
+        cursor = conn.cursor()
+        cursor.executescript(sql_string)
+        return cursor.execute("SELECT name from sqlite_master").fetchall()
 
     def runQuery(self, query):
         conn = sql.connect("records-db")
         cursor = conn.cursor()
         data = cursor.execute(query)
+        conn.commit()
         return data
     
     def commitChanges(self):

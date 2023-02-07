@@ -2,9 +2,9 @@ import json
 
 class Record: 
 
-    def __init__(self, item_id, name, artist, genre, runtime, total_stock, cost):
+    def __init__(self, item_id, title, artist, genre, runtime, total_stock, cost):
         self.item_id = item_id
-        self.name = name
+        self.title = title
         self.artist = artist
         self.genre = genre
         self.runtime = runtime

@@ -9,6 +9,7 @@ CORS(app, resources={r"*": {"origins": "*"}})
 """ Setting up Service Object """
 
 repo = Repo()
+# print(repo.createTable())
 service = Service(repo)
 
 
@@ -28,34 +29,38 @@ def getRecord(id):
 @app.route("/record", methods=['POST'])
 def createRecord():
     record = request.get_json()
-    print(record)
-    return record
+    return service.createRecord(record)
 
 @app.route("/record/<id>", methods=['PUT'])
 def updateRecord(id):
     record = request.get_json()
-    print(record)
+    service.updateRecord(id, record)
     return record
 
 """ Order API Requests """
 
 @app.route("/order")
 def getAllOrders():
-    return "Get All orders"
+    data = service.getAllOrders()
+    return jsonify(response = data)
 
 @app.route("/order/<id>")
 def getOrder(id):
-    return f"Get order {id}"
+    return service.getOrderId(id)
 
 @app.route("/order", methods=['POST'])
 def createOrder():
     order = request.get_json()
-    return order
+    return service.createOrder(order)
 
 @app.route("/order/<id>", methods=['PUT'])
 def updateOrder(id):
     order = request.get_json()
-    return order
+    return service.updateOrder(id, order)
+
+@app.route("/order/<id>", methods=["DELETE"])
+def deleteOrder(id):
+    return service.deleteOrder(id)
 
 if __name__ == "__main__":
     app.run(debug=True, host= "0.0.0.0", port=5000)

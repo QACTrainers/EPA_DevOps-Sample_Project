@@ -1,6 +1,9 @@
 from record import Record
 from order import Order
 
+from operator import itemgetter
+from datetime import datetime
+
 class Service:
 
     def __init__(self, repo):
@@ -11,45 +14,66 @@ class Service:
         dataArray = []
         for entry in data:
             dataObj = self.convertRecord(entry)
-            dataArray.append(dataObj)
+            dataArray.append(dataObj.__dict__)
         return dataArray
 
     def getRecordId(self, id):
         data = self.repo.runQuery(f"SELECT * FROM records WHERE record_id = {id}").fetchall()
         dataObj = self.convertRecord(data[0])
-        return dataObj
+        return dataObj.__dict__
         
     def createRecord(self, data):
-        record = Record(data)
-        return "Create new record"
+        title, artist, genre, runtime, total_stock, cost = itemgetter("title", "artist", "genre", "runtime", "total_stock", "cost")(data)
+        query = f"INSERT INTO records (title, artist, genre, runtime, total_stock, cost) VALUES ('{title}', '{artist}', '{genre}', {runtime}, {total_stock}, {cost});"
+        return self.repo.runQuery(query)
 
     def updateRecord(self, id, data):
-        record = Record(data)
-        return "Update one Record"
+        title, artist, genre, runtime, total_stock, cost = itemgetter("title", "artist", "genre", "runtime", "total_stock", "cost")(data)
+        query = f"UPDATE records SET title = '{title}', artist = '{artist}', genre = '{genre}', runtime = '{runtime}', total_stock = '{total_stock}', cost = '{cost}' WHERE record_id = {id}"
+        return self.repo.runQuery(query)
+
+    def updateStock(self, id, amount):
+        data = self.getRecordId(id)
+        print(data)
 
     # Orders 
 
     def getAllOrders(self):
-        return "get All Orders"
+        data = self.repo.runQuery("SELECT * FROM orders").fetchall()
+        dataArray = []
+        for entry in data:
+            dataObj = self.convertOrder(entry)
+            dataArray.append(dataObj.__dict__)
+        return dataArray
 
     def getOrderId(self, id):
-        return "get All Records"
+        data = self.repo.runQuery(f"SELECT * FROM orders WHERE order_id = {id}").fetchall()
+        dataObj = self.convertOrder(data[0])
+        return dataObj.__dict__
 
     def createOrder(self, data):
-        order = Order(data)
-        return "Created order"
+        item_id, quantity, total_cost = itemgetter("item_id", "quantity", "total_cost")(data)
+        date_time = datetime.now().isoformat()
+        query = f"INSERT INTO orders (item_id, quantity, total_cost, date_time) VALUES ({item_id}, {quantity}, {total_cost}, '{date_time}');"
+        return self.repo.runQuery(query)
 
     def updateOrder(self, id, data):
-        order = Order(data)
-        return "Updated order"
+        item_id, quantity, total_cost = itemgetter("item_id", "quantity", "total_cost")(data)
+        date_time = datetime.now().isoformat()
+        query = f"UPDATE orders SET item_id = {item_id}, quantity = {quantity}, total_cost = {total_cost}, date_time = '{date_time}' WHERE order_id = {id}"
+        return self.repo.runQuery(query)
 
     def deleteOrder(self, id):
-        return "Deleted order"
+        query = f"DELETE from orders WHERE order_id = {id}"
+        return self.repo.runQuery(query)
 
     def convertRecord(self, data):
-        recordObj = Record(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
-        return recordObj.__dict__
-
+        obj = Record(data[0], data[1], data[2], data[3], data[4], data[5], data[6])
+        return obj
+    
+    def convertOrder(self, data):
+        obj = Order(data[0], data[1], data[2], data[3], data[4])
+        return obj
 
 
     
