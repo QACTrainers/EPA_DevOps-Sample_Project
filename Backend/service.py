@@ -32,6 +32,17 @@ class Service:
         query = f"UPDATE records SET title = '{title}', artist = '{artist}', genre = '{genre}', runtime = '{runtime}', total_stock = '{total_stock}', cost = '{cost}' WHERE record_id = {id}"
         return self.repo.runQuery(query)
 
+    def getRecordSearch(self, search):
+        query = f"SELECT * FROM records WHERE (title LIKE '%{search}%') OR (artist LIKE '%{search}%') OR (genre LIKE '%{search}%');"
+        data = self.repo.runQuery(query).fetchall()
+        dataArray = []
+        for entry in data:
+            dataObj = self.convertRecord(entry)
+            dataArray.append(dataObj.__dict__)
+        return dataArray
+        
+        # return self.repo.runQuery(query)
+
     def updateStock(self, id, amount):
         data = self.getRecordId(id)
         print(data)
