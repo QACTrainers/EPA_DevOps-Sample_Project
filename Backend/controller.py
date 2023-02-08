@@ -37,6 +37,13 @@ def updateRecord(id):
     service.updateRecord(id, record)
     return record
 
+@app.route("/record/query")
+def getRecordSearch():
+    args = request.args
+    search = args.get('search')
+    data = service.getRecordSearch(search)
+    return jsonify(response = data)
+
 """ Order API Requests """
 
 @app.route("/order")
