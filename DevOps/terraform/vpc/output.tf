@@ -6,6 +6,10 @@ output "igw_id" {
   value = aws_internet_gateway.prod_igw.id
 }
 
-output "subnet_id" {
-  value = aws_subnet.public.id
+output "subnet_id_a" {
+  value = aws_subnet.public_a.id
+}
+
+output "subnet_id_b" {
+  value = aws_subnet.public_b.id
 }
