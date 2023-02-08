@@ -12,8 +12,6 @@ repo = Repo()
 # print(repo.createTable())
 service = Service(repo)
 
-
-
 """ Record API Requests """
 @app.route("/record")
 def getAllRecords():
@@ -36,6 +34,13 @@ def updateRecord(id):
     record = request.get_json()
     service.updateRecord(id, record)
     return record
+
+@app.route("/record/query")
+def getRecordSearch():
+    args = request.args
+    search = args.get('search')
+    data = service.getRecordSearch(search)
+    return jsonify(response = data)
 
 """ Order API Requests """
 
