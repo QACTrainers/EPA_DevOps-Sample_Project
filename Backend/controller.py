@@ -12,8 +12,6 @@ repo = Repo()
 # print(repo.createTable())
 service = Service(repo)
 
-
-
 """ Record API Requests """
 @app.route("/record")
 def getAllRecords():

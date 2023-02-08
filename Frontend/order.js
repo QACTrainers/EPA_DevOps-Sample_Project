@@ -1,49 +1,94 @@
-const recordDiv = document.querySelector("#record_list")
-console.log(recordDiv);
+const orderDiv = document.querySelector("#order_list")
+const selectForm = document.querySelector("#select_form")
+const orderBtn = document.querySelector("#add_order_btn")
+const quantityInput = document.querySelector("#album_quantity")
 
 const getData = async () => {
-    let response = await fetch(`http://localhost:5000/record`);
+    let response = await fetch(`http://localhost:5000/order`);
     let data = await response.json()
-    return data;
+    clearRecords()
+    populateData(data.response)
 };
 
-getData().then((data) => {
+const clearRecords = () => {
+    orderDiv.textContent = ""
+}
 
-    console.log(data.response);
+const populateData = (data) => { 
+    data.forEach(async (order, index) => {
 
-    data.response.forEach((record, index) => {
+        let album_data = await fetch(`http://localhost:5000/record/${order.item_id}`)
+        let data = await album_data.json()
 
+        card = document.createElement("div")
         card_body = document.createElement("div")
-        card_img = document.createElement("img")
-        card_sub_body = document.createElement("div")
-        card_title = document.createElement("h3")
-        card_subtitle = document.createElement("h5")
+        card_title = document.createElement("h5")
+        card_subtitle = document.createElement("h6")
         card_text = document.createElement("p")
-        card_add_basket = document.createElement("a")
-        card_more_info = document.createElement("a")
 
-        card_body.classList.add("card", "m-3")
-        card_img.classList.add("card-img-top")
-        card_sub_body.classList.add("card-body")
+        card.classList.add("card")
+        card_body.classList.add("card-body")
         card_title.classList.add("card-title")
-        card_subtitle.classList.add("card-subtitle")
+        card_subtitle.classList.add("card-subtitle", "mb-2", "text-muted")
         card_text.classList.add("card-text")
 
-        card_body.style = "width: 18rem"
-    
-        card_img.src = `https://picsum.photos/300/?random=${index + 1}`
-        card_title.innerText = record.title
-        card_subtitle.innerText = record.artist
-        card_text.innerText = record.cost
+        card_title.innerText = `Order ID:  ${order.order_id}`
+        card_subtitle.innerText = await `Album: ${data.title}  Artist: ${data.artist}`
+        card_text.innerText = `Quantity: ${order.quantity}    Total Cost:  ${order.total_cost}    Order Placed:  ${order.date_time}`
 
-        card_more_info.href = ``
+        orderDiv.appendChild(card)
+        card.appendChild(card_body)
+        card_body.appendChild(card_title)
+        card_body.appendChild(card_subtitle)
+        card_body.appendChild(card_text)
 
-        recordDiv.appendChild(card_body)
-        card_body.appendChild(card_img)
-        card_body.appendChild(card_sub_body)
-        card_sub_body.appendChild(card_title)
-        card_sub_body.appendChild(card_subtitle)
-        card_sub_body.appendChild(card_text)
+    })
+}
+
+const populateSelect = async () => {
+
+    let album_data = await fetch(`http://localhost:5000/record`)
+    let data = await album_data.json()
+
+    data.response.forEach((data, index) => {
+        new_option = document.createElement("option")
+        new_option.value = data.item_id
+        new_option.innerText = data.title
+
+        selectForm.appendChild(new_option)
     })
 
-});
+}
+
+const submitOrder = async () => {
+
+    // console.log("Hello!");
+
+    let album_data = await fetch(`http://localhost:5000/record/${selectForm.value}`)
+    let data = await album_data.json()
+
+    total_cost = await data.cost * quantityInput.value
+
+    orderObj = {
+        item_id: selectForm.value,
+        quantity: quantityInput.value,
+        total_cost: total_cost
+    }
+
+    const response = await fetch("http://localhost:5000/order", {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+        body: JSON.stringify(orderObj)
+    });
+
+    await console.log(response);
+
+}
+
+getData()
+populateSelect()
+
+orderBtn.addEventListener("click", submitOrder)
