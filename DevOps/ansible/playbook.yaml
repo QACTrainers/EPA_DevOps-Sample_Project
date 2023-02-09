@@ -1,4 +1,4 @@
 - hosts: setup
-  tasks:
-  - name: "Ping"
-    ping:
+  become: true
+  roles:
+  - jenkins
