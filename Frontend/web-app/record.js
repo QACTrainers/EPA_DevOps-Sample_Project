@@ -3,8 +3,10 @@ const searchBtn = document.querySelector("#search_btn")
 const showAllBtn = document.querySelector("#show_all")
 const searchBar = document.querySelector("#search_text")
 
+url = "http://176.34.79.131:5000"
+
 const getData = async () => {
-    let response = await fetch(`http://localhost:5000/record`);
+    let response = await fetch(`${url}/record`);
     let data = await response.json()
     clearRecords()
     populateData(data.response)
@@ -15,7 +17,7 @@ const searchData = async () => {
     search = searchBar.value
     searchBar.value = ""
 
-    let response = await fetch(`http://localhost:5000/record/query?search=${search}`);
+    let response = await fetch(`${url}/record/query?search=${search}`);
     let data = await response.json()
     clearRecords()
     populateData(data.response)
