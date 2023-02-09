@@ -3,8 +3,10 @@ const selectForm = document.querySelector("#select_form")
 const orderBtn = document.querySelector("#add_order_btn")
 const quantityInput = document.querySelector("#album_quantity")
 
+url = "http://176.34.79.131:5000"
+
 const getData = async () => {
-    let response = await fetch(`http://localhost:5000/order`);
+    let response = await fetch(`${url}/order`);
     let data = await response.json()
     clearRecords()
     populateData(data.response)
@@ -17,7 +19,7 @@ const clearRecords = () => {
 const populateData = (data) => { 
     data.forEach(async (order, index) => {
 
-        let album_data = await fetch(`http://localhost:5000/record/${order.item_id}`)
+        let album_data = await fetch(`${url}/record/${order.item_id}`)
         let data = await album_data.json()
 
         card = document.createElement("div")
@@ -47,7 +49,7 @@ const populateData = (data) => {
 
 const populateSelect = async () => {
 
-    let album_data = await fetch(`http://localhost:5000/record`)
+    let album_data = await fetch(`${url}/record`)
     let data = await album_data.json()
 
     data.response.forEach((data, index) => {
@@ -64,7 +66,7 @@ const submitOrder = async () => {
 
     // console.log("Hello!");
 
-    let album_data = await fetch(`http://localhost:5000/record/${selectForm.value}`)
+    let album_data = await fetch(`${url}/record/${selectForm.value}`)
     let data = await album_data.json()
 
     total_cost = await data.cost * quantityInput.value
@@ -75,7 +77,7 @@ const submitOrder = async () => {
         total_cost: total_cost
     }
 
-    const response = await fetch("http://localhost:5000/order", {
+    const response = await fetch("${url}/order", {
         method: "POST",
         headers: {
             'Accept': 'application/json',
