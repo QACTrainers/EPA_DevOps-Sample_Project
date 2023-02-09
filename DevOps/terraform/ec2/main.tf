@@ -20,6 +20,24 @@ resource "aws_security_group" "ssh_allowed" {
   }
 }
 
+resource "aws_security_group_rule" "http" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = [var.open_internet]
+  security_group_id = aws_security_group.ssh_allowed.id
+}
+
+resource "aws_security_group_rule" "jenkins" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  cidr_blocks       = [var.open_internet]
+  security_group_id = aws_security_group.ssh_allowed.id
+}
+
 resource "aws_instance" "example" {
   ami                    = var.ami_uk
   instance_type          = var.type
