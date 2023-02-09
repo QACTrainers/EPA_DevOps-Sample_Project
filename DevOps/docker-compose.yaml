@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  frontend:
+    container_name: frontend
+    build: ../Frontend
+    image: epa_frontend_img:latest
+    ports: 
+    - target: 80
+      published: 80
+
+  backend:
+    container_name: backend
+    build: ../Backend
+    image: epa_backend_img:latest
+    ports: 
+    - target: 5000
+      published: 5000
