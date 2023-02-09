@@ -1,0 +1,4 @@
+- hosts: setup
+  tasks:
+  - name: "Ping"
+    ping:
