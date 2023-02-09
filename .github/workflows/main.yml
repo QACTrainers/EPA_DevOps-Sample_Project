@@ -17,11 +17,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Setup docker-compose
-        uses: KengoTODA/actions-setup-docker-compose@v1.0.9
-        with:
-          version: "3.8"
-
-      # Deploy using docker-compose
-      - name: Deploy using docker-compose
-        run: docker-compose -f DevOps/docker-compose.yaml up -d
+  # need checkout before using compose-action
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.4.1
+          with:
+            compose-file: "./DevOps/docker-compose.yml"
