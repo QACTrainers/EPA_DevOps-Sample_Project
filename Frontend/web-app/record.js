@@ -3,7 +3,7 @@ const searchBtn = document.querySelector("#search_btn")
 const showAllBtn = document.querySelector("#show_all")
 const searchBar = document.querySelector("#search_text")
 
-url = "http://176.34.79.131:5000"
+url = "a7b91191f6e06421eb25f7e112c56928-889164546.eu-west-1.elb.amazonaws.com/api"
 
 const getData = async () => {
     let response = await fetch(`${url}/record`);
