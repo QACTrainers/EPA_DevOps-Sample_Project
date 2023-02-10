@@ -1,6 +1,6 @@
 FROM nginx:alpine
 
-ADD . /opt/web-app
+ADD web-app /opt/web-app
 
 ADD nginx.conf /etc/nginx
 
