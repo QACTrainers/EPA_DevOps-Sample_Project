@@ -35,4 +35,4 @@ jobs:
           IMAGE_NAME: epa_backend
           TAG_NAME: "v0.0.1"
           BUILDX: "true"
-          DOCKERFILE: "./Backend
+          DOCKERFILE: "./Backend"
