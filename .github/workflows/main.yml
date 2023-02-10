@@ -7,11 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
-      - uses: actions/checkout@v3
-      - uses: isbang/compose-action@v1.4.1
-        with:
-          compose-file: "./DevOps/docker-compose.yml"
+
+      - name: Sanity testing
+        run: ls /EPA-Sample_project
+        
+      - name: more testing
+        run: pwd
           
       - name: Build & Push frontend to Docker Hub
         uses: opspresso/action-docker@master
