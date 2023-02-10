@@ -7,12 +7,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Sanity testing
-        run: ls 
+      
+      - name: Building frontend Image
+        run: docker build . -t epa_frontend_img -f Frontend/Dockerfile
         
-      - name: more testing
-        run: pwd
+      - name: Building backend Image
+        run: docker build . -t epa_backend_img -f backend/Dockerfile
+        
+      - name: Pushing frontend to dockerhub 
+        run: |
+          docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+          docker push reeceqa/epa_frontend_img:latest
+          docker push reeceqa/epa_backend_img:latest
           
       - name: Build & Push frontend to Docker Hub
         uses: opspresso/action-docker@master
