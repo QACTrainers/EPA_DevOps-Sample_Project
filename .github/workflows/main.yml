@@ -10,16 +10,14 @@ jobs:
       
       - name: Building frontend Image
         run: |
-          cd Frontend
-          docker build . -t epa_frontend_img -f Dockerfile
+          docker build -t reeceqa/epa_frontend ./Frontend/
         
       - name: Building backend Image
         run: | 
-          cd Backend
-          docker build . -t epa_backend_img -f Dockerfile
+          docker build -t reeceqa/epa_backend ./Backend/
         
       - name: Pushing frontend to dockerhub 
         run: |
           docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
-          docker push reeceqa/epa_frontend_img:latest
-          docker push reeceqa/epa_backend_img:latest
+          docker push reeceqa/epa_frontend:latest
+          docker push reeceqa/epa_backend:latest
