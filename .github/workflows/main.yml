@@ -11,11 +11,12 @@ jobs:
       - name: Building frontend Image
         run: |
           cd Frontend
-          ls
           docker build . -t epa_frontend_img -f Dockerfile
         
       - name: Building backend Image
-        run: docker build . -t epa_backend_img -f backend/Dockerfile
+        run: | 
+          cd Backend
+          docker build . -t epa_backend_img -f Dockerfile
         
       - name: Pushing frontend to dockerhub 
         run: |
