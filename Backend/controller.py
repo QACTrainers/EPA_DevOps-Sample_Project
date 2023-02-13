@@ -9,7 +9,7 @@ CORS(app, resources={r"*": {"origins": "*"}})
 """ Setting up Service Object """
 
 repo = Repo()
-print(repo.createTable())
+# print(repo.createTable())
 service = Service(repo)
 
 """ Record API Requests """
