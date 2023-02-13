@@ -21,7 +21,7 @@ def test_deleteAllRecords(mocker):
 
     result = False
     # Act 
-    result = test_deleteAllRecords()
+    result = deleteAllRecords()
 
     # Assert
     assert result == True
