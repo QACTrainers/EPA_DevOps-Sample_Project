@@ -95,6 +95,7 @@ const createAlbum = async () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
+          body: JSON.stringify(albumObj)
     })
 
     await console.log(response);
@@ -104,3 +105,5 @@ const createAlbum = async () => {
 deleteAlbumBtn.addEventListener("click", deleteAlbum)
 deleteOrderBtn.addEventListener("click", deleteOrder)
 createAlbumBtn.addEventListener("click", createAlbum)
+
+populateSelect()
