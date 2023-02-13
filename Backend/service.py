@@ -33,7 +33,7 @@ class Service:
         return self.repo.runQuery(query)
 
     def deleteRecord(self, id):
-        query = f"DELETE from records WHERE item_id = {id}"
+        query = f"DELETE from records WHERE record_id = {id}"
         return self.repo.runQuery(query)
 
     def getRecordSearch(self, search):
