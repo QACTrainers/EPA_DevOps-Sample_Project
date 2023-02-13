@@ -51,6 +51,11 @@ class Service:
         data = self.getRecordId(id)
         print(data)
 
+    def deleteAllRecords(self):
+        query = "DELETE FROM records WHERE record_id > 0"
+        self.repo.runQuery(query)
+        return True
+
     # Orders 
 
     def getAllOrders(self):
