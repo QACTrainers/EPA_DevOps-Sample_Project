@@ -9,7 +9,7 @@ CORS(app, resources={r"*": {"origins": "*"}})
 """ Setting up Service Object """
 
 repo = Repo()
-# print(repo.createTable())
+print(repo.createTable())
 service = Service(repo)
 
 """ Record API Requests """
@@ -34,6 +34,10 @@ def updateRecord(id):
     record = request.get_json()
     service.updateRecord(id, record)
     return record
+
+@app.route("/record/<id>", methods=["DELETE"])
+def deleteRecord(id):
+    return service.deleteRecord(id)
 
 @app.route("/record/query")
 def getRecordSearch():
