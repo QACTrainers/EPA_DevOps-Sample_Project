@@ -40,3 +40,25 @@ sudo curl -L "https://github.com/docker/compose/releases/download/${version}/doc
 sudo chmod +x /usr/local/bin/docker-compose
 
 docker-compose --version
+
+
+# EKS
+
+sudo apt update
+sudo apt install awscli
+aws configure 
+(enter access key, secret key, region eu-west-1)
+
+curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.22.6/2022-03-09/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+
+echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+
+kubectl version --short --client
+
+aws eks update-kubeconfig --region eu-west-1 --name <name of cluster>
+
+kubectl get svc
