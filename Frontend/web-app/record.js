@@ -6,7 +6,7 @@ const searchBar = document.querySelector("#search_text")
 url = "a1409f5223925440e9a55fbeea470060-1962762701.eu-west-1.elb.amazonaws.com/api"
 
 const getData = async () => {
-    let response = await fetch(`${url}/record`);
+    let response = await fetch("http://a1409f5223925440e9a55fbeea470060-1962762701.eu-west-1.elb.amazonaws.com/api/record");
     let data = await response.json()
     clearRecords()
     populateData(data.response)
