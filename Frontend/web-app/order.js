@@ -3,7 +3,7 @@ const selectForm = document.querySelector("#select_form")
 const orderBtn = document.querySelector("#add_order_btn")
 const quantityInput = document.querySelector("#album_quantity")
 
-url = "a1409f5223925440e9a55fbeea470060-1962762701.eu-west-1.elb.amazonaws.com/api"
+url = "http://a1409f5223925440e9a55fbeea470060-1962762701.eu-west-1.elb.amazonaws.com/api"
 
 const getData = async () => {
     let response = await fetch(`${url}/order`);
@@ -77,7 +77,7 @@ const submitOrder = async () => {
         total_cost: total_cost
     }
 
-    const response = await fetch("${url}/order", {
+    const response = await fetch(`${url}/order`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
