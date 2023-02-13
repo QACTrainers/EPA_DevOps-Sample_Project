@@ -59,6 +59,6 @@ echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
 
 kubectl version --short --client
 
-aws eks update-kubeconfig --region eu-west-1 --name <name of cluster>
+aws eks update-kubeconfig --region eu-west-1 --name epa-cluster
 
 kubectl get svc
