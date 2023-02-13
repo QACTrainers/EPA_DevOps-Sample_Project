@@ -22,6 +22,9 @@ const populateSelect = async () => {
     let order_data = await fetch(`${url}/order`)
     let data_2 = await order_data.json()
 
+    console.log(data);
+    console.log(data_2);
+
     data.response.forEach((data, index) => {
         new_option = document.createElement("option")
         new_option.value = data.item_id
@@ -68,13 +71,6 @@ const deleteOrder = async () => {
 
 const createAlbum = async () => {
 
-    artist_input.value = ""
-    cost_input.value = ""
-    genre_input.value = ""
-    runtime_input.value = ""
-    title_input.value = ""
-    stock_input.value = ""
-
     albumObj = {
         artist: artist_input.value,
         cost: cost_input.value,
@@ -83,6 +79,13 @@ const createAlbum = async () => {
         title: title_input.value,
         total_stock: stock_input.value
     }
+
+    artist_input.value = ""
+    cost_input.value = ""
+    genre_input.value = ""
+    runtime_input.value = ""
+    title_input.value = ""
+    stock_input.value = ""
 
     console.log(albumObj);
 
@@ -95,6 +98,7 @@ const createAlbum = async () => {
     })
 
     await console.log(response);
+    
 }
 
 deleteAlbumBtn.addEventListener("click", deleteAlbum)
