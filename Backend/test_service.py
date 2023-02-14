@@ -1,23 +1,14 @@
 from service import Service
 from repo import Repo
 
-# Testing the change_record stock function which lowers a records stock by an order quantity
-# def test_changeRecordStock(mocker):
+def setup_module(module):
+    print("Hello World")
 
-#     # Arrange 
-#     record_id = 0
-#     order_id = 0
-#     result = False
-#     mocker.patch("self.repo.runQuery", return_value = )
-
-#     # Act
-#     result = changeRecordStock(record_id, order_id)
-
-#     # Assert 
-#     assert result == True
-
-test_repo = Repo()
+test_repo = Repo("test-db")
 test_service = Service(test_repo)
+
+test_repo.createTable()
+
 
 def test_deleteAllRecords(mocker):
 
@@ -31,3 +22,16 @@ def test_deleteAllRecords(mocker):
 
     # Assert
     assert result == True
+
+def test_getAllRecords(mocker):
+
+
+
+    # mocker.patch("repo.Repo.runQuery", return_value = "Hello")
+    mocker.patch("service.Service.fetchall", return_value = "Hello")
+
+    result = test_service.getAllRecords()
+    
+
+    assert result == "Hello"
+

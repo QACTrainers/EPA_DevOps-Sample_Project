@@ -8,7 +8,7 @@ CORS(app, resources={r"*": {"origins": "*"}})
 
 """ Setting up Service Object """
 
-repo = Repo()
+repo = Repo("records-db")
 # print(repo.createTable())
 service = Service(repo)
 
