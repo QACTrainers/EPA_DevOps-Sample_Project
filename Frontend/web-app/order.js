@@ -3,7 +3,7 @@ const selectForm = document.querySelector("#select_form")
 const orderBtn = document.querySelector("#add_order_btn")
 const quantityInput = document.querySelector("#album_quantity")
 
-url = "http://a1409f5223925440e9a55fbeea470060-1962762701.eu-west-1.elb.amazonaws.com/api"
+url = "http://a9e614bff6d4f4f2684a31bd44f1c683-600235163.eu-west-1.elb.amazonaws.com/api"
 
 const getData = async () => {
     let response = await fetch(`${url}/order`);
