@@ -27,17 +27,19 @@ def getRecord(id):
 @app.route("/record", methods=['POST'])
 def createRecord():
     record = request.get_json()
-    return service.createRecord(record)
+    service.createRecord(record)
+    return f"Album added {record['title']}"
 
 @app.route("/record/<id>", methods=['PUT'])
 def updateRecord(id):
     record = request.get_json()
     service.updateRecord(id, record)
-    return record
+    return f"Album updated {record['title']}"
 
 @app.route("/record/<id>", methods=["DELETE"])
 def deleteRecord(id):
-    return service.deleteRecord(id)
+    service.deleteRecord(id)
+    return f"Album Deleted of ID {id}"
 
 @app.route("/record/query")
 def getRecordSearch():
