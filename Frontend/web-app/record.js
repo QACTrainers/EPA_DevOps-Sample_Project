@@ -51,6 +51,7 @@ const populateData = (data) => {
         card_body.style = "width: 18rem"
     
         card_img.src = `https://picsum.photos/300/?random=${index + 1}`
+        card_img.alt = `Image of ${record.title}`
         card_title.innerText = record.title
         card_subtitle.innerText = record.artist
         card_text.innerText = record.cost
