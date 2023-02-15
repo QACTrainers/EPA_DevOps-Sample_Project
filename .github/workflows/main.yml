@@ -7,6 +7,30 @@ on:
 
 
 jobs:
+
+  linting: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Lint Code Base
+      uses: github/super-linter@v4
+        
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      
+    - name: Install testing software
+      run: pip install pytest
+      
+    - name: Run python tests
+      run: pytest Backend/ test_service.py
+   
   build:
     runs-on: ubuntu-latest
     steps:
