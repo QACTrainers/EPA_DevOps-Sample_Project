@@ -34,7 +34,8 @@ class Service:
 
     def deleteRecord(self, id):
         query = f"DELETE from records WHERE record_id = {id}"
-        return self.repo.runQuery(query)
+        self.repo.runQuery(query)
+        return True
 
     def getRecordSearch(self, search):
         query = f"SELECT * FROM records WHERE (title LIKE '%{search}%') OR (artist LIKE '%{search}%') OR (genre LIKE '%{search}%');"
