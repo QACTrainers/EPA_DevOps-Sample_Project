@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  frontend:
+    container_name: frontend
+    image: reeceqa/epa_frontend:latest
+    ports: 
+    - target: 80
+      published: 80
+
+  backend:
+    container_name: backend
+    image: reeceqa/epa_backend:latest
+    ports: 
+    - target: 5000
+      published: 5000

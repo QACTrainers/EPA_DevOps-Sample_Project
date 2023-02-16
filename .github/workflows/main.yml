@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - Dev
+
+
+jobs:
+
+  linting: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Lint Code Base
+      uses: github/super-linter@v4
+        
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+      
+    - name: Install testing software
+      run: pip install pytest
+      
+    - name: Run python tests
+      run: pytest Backend/test_service.py
+   
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Building frontend Image
+        run: |
+          docker build -t reeceqa/epa_frontend ./Frontend/
+        
+      - name: Building backend Image
+        run: | 
+          docker build -t reeceqa/epa_backend ./Backend/
+        
+      - name: Pushing frontend to dockerhub 
+        run: |
+          docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
+          docker push reeceqa/epa_frontend:latest
+          docker push reeceqa/epa_backend:latest
