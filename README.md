@@ -95,19 +95,19 @@ The Cloud structure with the Setup EC2 will look like below:
 Kubernetes structure with routes and networking looks like: 
   <br>
   <br>
-![Cloud Environment](/Project_Planning/images/K8s_routes.png) 
+![k8s Structure](/Project_Planning/images/K8s_routes.png) 
   <br>
   <br>
 GitHub Actions stages and process: 
   <br>
   <br>
-![Cloud Environment](/Project_Planning/images/GitHub_CI CD.png) 
+![GitHub Actions](/Project_Planning/images/GitHub_CI CD.png) 
   <br>
   <br>
 Routes of the backend and the simplified Backend <-> Frontend connection: 
   <br>
   <br>
-![Cloud Environment](/Project_Planning/images/Frontend and Backend.drawio.png) 
+![Software Backend Frontend](/Project_Planning/images/Frontend and Backend.drawio.png) 
   
   
 ## Documentation
