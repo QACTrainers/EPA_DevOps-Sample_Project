@@ -38,11 +38,11 @@ jobs:
       
       - name: Building frontend Image
         run: |
-          docker build -t reeceqa/epa_frontend ./Frontend/
+          docker build -t ${{secrets.DOCKER_USERNAME}}/epa_frontend ./Frontend/
         
       - name: Building backend Image
         run: | 
-          docker build -t reeceqa/epa_backend ./Backend/
+          docker build -t ${{secrets.DOCKER_USERNAME}}/epa_backend ./Backend/
         
       - name: Pushing frontend to dockerhub 
         run: |
