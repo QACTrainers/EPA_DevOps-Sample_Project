@@ -51,7 +51,7 @@ Within the forked repo you have to add GitHub Actions secrets for DockerHub, add
 
 Within your setup EC2 git clone the forked repo down and navigate to the DevOps directory `cd /DevOps`
 
-Run the `./setup.sh`file to install terraform, awscli and kubectl. 
+Run the `./setup.sh` file to install terraform, awscli and kubectl. 
 
 Navigate to the `/terraform` directory and create a file called `terraform.tfvars` and add the following (entering your own AWS keys) 
 
@@ -72,6 +72,7 @@ Run the `./deploy.sh` to setup the K8s cluster, apply the k8s manifest files and
 Once the manifests have been applied wait approx 2 minutes and run the command `kubectl get svc` to print the services and make note of the external IP on the `load balancer` service. This URL is how you access the application, in order for the application to fully work you must edit the .js files of the /Frontend/WebApp and replace the existing URL with the external IP you have copied.  
 
 Push these changes to your repo with the following: 
+
 ```
 git add . 
 git commit -m "Modified .js files" 
@@ -80,33 +81,22 @@ git push
 
 By pushing new code to GitHub it forces the workflow file to run which will lint, test, build and pushing the image to DockerHub. 
 
-Once the GitHub workflow has run and passed the checks your images will be pushed up to your personal DockerHub and can be accessed by <dockerHub username>/epa_frontend and epa_backend we can force the K8s deployment to update with the command `kubectl rollout frontend` and `kubectl rollout backend`
-  
+Once the GitHub workflow has run and passed the checks your images will be pushed up to your personal DockerHub and can be accessed by `<dockerHub username>/epa_frontend and epa_backend` we can force the K8s deployment to update with the command `kubectl rollout frontend` and `kubectl rollout backend`
+
 To access the application go to your web browser and access the Load Balancer external IP, it should open up the web page and will contain all necessary functionality. 
   
-## Project Structure
+# Project Structure
   
-The Cloud structure with the Setup EC2 will look like below: 
-  <br>
-  <br>
-![Cloud Environment](/Project_Planning/images/Cloud_Environment.png) 
-  <br>
-  <br>
-Kubernetes structure with routes and networking looks like: 
-  <br>
-  <br>
-![k8s Structure](/Project_Planning/images/K8s_routes.png) 
-  <br>
-  <br>
+The Cloud structure with the Setup EC2 will look like below
+![Cloud Environment](/Project_Planning/images/Cloud_Environment.png)
+
+Kubernetes structure with routes and networking looks like
+![k8s Structure](/Project_Planning/images/K8s_routes.png)
+
 GitHub Actions stages and process: 
-  <br>
-  <br>
-![GitHub Actions](/Project_Planning/images/GitHub_CI CD.png) 
-  <br>
-  <br>
+![GitHub Actions](/Project_Planning/images/GitHub_CI CD.png)
+
 Routes of the backend and the simplified Backend <-> Frontend connection: 
-  <br>
-  <br>
 ![Software Backend Frontend](/Project_Planning/images/Frontend and Backend.drawio.png) 
   
   
